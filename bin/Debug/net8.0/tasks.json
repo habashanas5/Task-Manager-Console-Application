@@ -1,0 +1,26 @@
+[
+  {
+    "Title": "Reading",
+    "Description": "reading a book for chapter 1",
+    "DueDate": "2002-01-02T00:00:00",
+    "Priority": "high",
+    "Status": "in progress",
+    "Category": "Personal"
+  },
+  {
+    "Title": "playing",
+    "Description": "playing a football ",
+    "DueDate": "2014-09-05T00:00:00",
+    "Priority": "high",
+    "Status": "in progress",
+    "Category": "Personal"
+  },
+  {
+    "Title": "party",
+    "Description": "its a barithday party ",
+    "DueDate": "2003-01-18T00:00:00",
+    "Priority": "low",
+    "Status": "pending",
+    "Category": "Personal"
+  }
+]
