@@ -51,6 +51,49 @@ The Task Manager application provides an intuitive interface to manage tasks eff
   - The `GetValidInput` method is used to ensure valid inputs for the task's priority, status, and category, prompting the user until a correct option is selected.
   - The `GetValidDate` method is used to ensure the user inputs a valid date in the required format.
 
+## Method Breakdown
+
+### 1. **ViewProgress**  
+   The `ViewProgress` method is used to calculate and display the completion progress of tasks. It works by:
+   - **Counting Total Tasks**: First, the total number of tasks is counted using `tasks.Count`.
+   - **Counting Completed Tasks**: It filters tasks where the `Status` is set to `"Completed"` using `tasks.Count(t => t.Status.Equals("Completed", StringComparison.OrdinalIgnoreCase))`.
+   - **Calculating Completion Rate**: It then calculates the percentage of tasks that are completed using the formula:
+     ```csharp
+     double completionRate = (double)completedTasks / totalTasks * 100;
+     ```
+   - **Displaying Progress**: Finally, it displays the total number of tasks, the number of completed tasks, and the completion rate to the user.
+
+   This method provides users with a clear insight into how much work has been finished, offering a quick overview of task completion.
+
+### 2. **SearchTasks**  
+   The `SearchTasks` method allows users to search for tasks based on a keyword entered by the user. It performs the following steps:
+   - **Getting User Input**: The method prompts the user to enter a keyword for searching tasks, which is read using `Console.ReadLine()`.
+   - **Filtering Tasks**: It filters the `tasks` list using LINQ’s `Where` method, looking for tasks where either the `Title` or `Description` contains the entered keyword. The comparison is case-insensitive using `StringComparison.OrdinalIgnoreCase`.
+     ```csharp
+     var matchedTasks = tasks.Where(t => t.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                         t.Description.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
+     ```
+   - **Displaying Results**: If no tasks match the keyword, a message is displayed to the user. Otherwise, it prints the details of each matched task, including the title, description, due date, priority, status, and category.
+
+   This feature helps users quickly find tasks based on keywords, making it easy to locate specific tasks by title or description.
+
+### 3. **ViewTasks**  
+   The `ViewTasks` method is used to view all tasks or filter tasks by category. It operates as follows:
+   - **Getting Category Filter**: The method prompts the user to optionally filter tasks by category. If no category is entered, it shows all tasks.
+   - **Filtering Tasks**: If a category is specified, it filters the `tasks` list using `Where`, matching the category (case-insensitive):
+     ```csharp
+     var filteredTasks = string.IsNullOrEmpty(category)
+         ? tasks
+         : tasks.Where(t => t.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
+     ```
+   - **Sorting by Due Date**: After filtering, tasks are sorted by their `DueDate` using `OrderBy` to ensure that tasks with earlier due dates appear first.
+     ```csharp
+     filteredTasks = filteredTasks.OrderBy(t => t.DueDate).ToList();
+     ```
+   - **Displaying Tasks**: If no tasks match the filter or sorting criteria, a message is displayed. Otherwise, it prints the details of each filtered task, including the title, description, due date, priority, status, and category.
+
+   This method allows users to view tasks in an organized way, either showing all tasks or filtered by category and sorted by due date.
+
 ## Technologies Used
 
 - **C#**: The application is developed in C#, using object-oriented programming principles to structure the task management functionality.
